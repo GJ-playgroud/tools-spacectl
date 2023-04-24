@@ -24,13 +24,22 @@ jobs:
       - name: Checkout
         run: echo "docker"
 
-  scan:
+  tagging:
     needs: docker
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - name: Run Trivy vulnerability scanner
-        id: trivy-scan
-        run: echo "scan"
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH }}
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: tagging
+        run: |
+          git config user.email admin@GJ-playgroud.com
+          git config user.name GJ-playgroud-admin
+          git tag ${{ env.VERSION }}
+          git push origin ${{ env.VERSION }}
 
   notification:
     needs: docker
