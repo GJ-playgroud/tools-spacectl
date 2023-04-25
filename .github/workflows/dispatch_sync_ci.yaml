@@ -5,13 +5,13 @@ on:
 
 env:
   workflow_file_name: deploy.yaml
-  owner: GJ-playgroud
+  owner: cloudforet-io
   repo: actions
   ref: master
 
 jobs:
   owner_check:
-    if: github.repository_owner == 'GJ-playgroud'
+    if: github.repository_owner == 'cloudforet-io'
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.repository_owner }}
